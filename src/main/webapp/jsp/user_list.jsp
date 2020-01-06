@@ -75,6 +75,8 @@
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <span class="layui-btn layui-btn-sm" lay-event="addRowData"><i class="layui-icon">&#xe654;</i>新增</span>
+        <span type="button" class="layui-btn layui-btn-green layui-btn-sm"
+              lay-event="doExport"><i class="layui-icon">&#xe601;</i>导出</span>
         <%--<span class="layui-btn layui-btn-sm" lay-event="delRowData"><i class="layui-icon">&#xe640;</i>批量删除</span>--%>
     </div>
 </script>
@@ -157,6 +159,10 @@
             switch(obj.event){
                 case 'addRowData': //新增
                     editRow('',1);
+                    break;
+                case 'doExport': //导出
+                    var params = $("#queryForm").serialize();
+                    window.location.href="${base}/user/exportUser.do?"+params;
                     break;
                 case 'delRowData': //批量删除
                     var checkedIds = tablePlug.tableCheck.getChecked(tableId);

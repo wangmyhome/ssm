@@ -3,8 +3,13 @@ package com.ssm.controller;
 import com.ssm.bean.User;
 import com.ssm.service.UserService;
 import com.ssm.utils.DataGridView;
+import com.ssm.utils.ExportExcelUtils;
 import com.ssm.utils.ResultObj;
 import com.ssm.vo.UserVo;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,8 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author shanpeng
@@ -136,5 +145,31 @@ public class UserController {
             e.printStackTrace();
             return ResultObj.DELETE_ERROR;
         }
+    }
+
+
+    @RequestMapping("exportUser.do")
+    public ResponseEntity<Object> exportCustomer(UserVo userVo, HttpServletResponse response){
+        List<User> users = userService.findAllUserList(userVo);
+        String fileName="用户数据.xls";
+        String sheetName="用户数据";
+
+        ByteArrayOutputStream bos = ExportExcelUtils.exportCustomer(users,sheetName);
+
+        try {
+            //处理文件名乱码
+            fileName= URLEncoder.encode(fileName,"UTF-8");
+            //创建 封装响应头信息的对象
+            HttpHeaders headers = new HttpHeaders();
+            //封装响应内容类型(APPLICATION_OCTET_STREAM 响应的内容不限定)
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            //设置下载的文件的名称
+            headers.setContentDispositionFormData("attachment",fileName);
+            return new ResponseEntity<Object>(bos.toByteArray(),headers, HttpStatus.CREATED);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

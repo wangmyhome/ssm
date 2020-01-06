@@ -3,7 +3,8 @@ package com.ssm.service;
 import com.ssm.bean.User;
 import com.ssm.utils.DataGridView;
 import com.ssm.vo.UserVo;
-import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 public interface UserService {
@@ -38,4 +39,13 @@ public interface UserService {
      * @return
      */
     DataGridView findAllUser(UserVo userVo);
+
+    /**
+     * @Description 查询用户数据
+     * @Author shanpeng
+     * @Date  15:45
+     * @Param [userVo]
+     * @return java.util.List<com.ssm.vo.UserVo>
+     **/
+    List<User> findAllUserList(UserVo userVo);
 }

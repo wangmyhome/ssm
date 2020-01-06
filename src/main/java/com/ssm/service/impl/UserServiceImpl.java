@@ -58,4 +58,9 @@ public class UserServiceImpl implements UserService {
         PageInfo<User> info = new PageInfo<User>(data);
         return  new DataGridView(info.getTotal(), data);
     }
+
+    @Override
+    public List<User> findAllUserList(UserVo userVo) {
+        return userMapper.findAll(userVo);
+    }
 }

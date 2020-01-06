@@ -25,6 +25,13 @@
   </properties>
 
   <dependencies>
+
+    <!--POI excel导出-->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>4.1.0</version>
+    </dependency>
     <!-- spring -->
     <dependency>
       <groupId>org.aspectj</groupId>
