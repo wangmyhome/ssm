@@ -59,14 +59,14 @@ public class UserController {
      **/
     @RequestMapping("toUserEdit.do")
     public ModelAndView toUserEdit(User user, @RequestParam(value="addOrEdit")String addOrEdit){
-        ModelAndView mv = new ModelAndView("user_edit");
-        //addOrEdit;0:查看；1：新建；2：修改；
-        if("0".equals(addOrEdit)||"2".equals(addOrEdit)){
-            User userdb = userService.findUserById(user.getId());
-            mv.addObject("user",userdb);
-        }
-        mv.addObject("addOrEdit",addOrEdit);
-        return mv;
+//        ModelAndView mv = new ModelAndView("user_edit");
+//        //addOrEdit;0:查看；1：新建；2：修改；
+//        if("0".equals(addOrEdit)||"2".equals(addOrEdit)){
+//            User userdb = userService.findUserById(user.getId());
+//            mv.addObject("user",userdb);
+//        }
+//        mv.addObject("addOrEdit",addOrEdit);
+//        return mv;
     }
 
 
